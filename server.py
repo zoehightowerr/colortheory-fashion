@@ -15,7 +15,7 @@ learning_page1_data= [
       "popup_text": "base color orange with 3 variances",
       "colors":["#f9cb9cff", "#f6b26bff", "#e69138ff"],
       "color_amount": "3",
-      "next_lesson":"1b"
+      "next_lesson":"/learn/1b"
    },
    {
       "id": "2",
@@ -27,7 +27,7 @@ learning_page1_data= [
       "popup_text":"red and green as complementary colors",
       "colors":["#cc0000ff","#357c69ff"],
       "color_amount":"2",
-      "next_lesson":"2b"
+      "next_lesson":"/learn/2b"
    },
    {
       "id": "3",
@@ -39,7 +39,7 @@ learning_page1_data= [
       "popup_text":"Red, blue, and green of the same hue is the most basic triadic combination",
       "colors":["#be414bff","#4bbe41ff", "#414bbeff"],
       "color_amount":"3",
-      "next_lesson":"3b"
+      "next_lesson":"/learn/3b"
    },
    {
       "id": "4",
@@ -51,7 +51,7 @@ learning_page1_data= [
       "popup_text":"Red, blue, yellow and green of the same hue is the most basic tetradic combination",
       "colors":["#d12e81ff","#d1cf2eff","#2ed17eff","#2e30d1ff"],
       "color_amount":"4",
-      "next_lesson":"4b"
+      "next_lesson":"/learn/4b"
    }
 ]
 
@@ -67,7 +67,7 @@ learning_page2_data= [
       "color_amount":"3",
       "outfit_1":"",
       "outfit_2":"",
-      "next_lesson":"2a"
+      "next_lesson":"/learn/2a"
    },
    {
       "id": "2",
@@ -80,7 +80,7 @@ learning_page2_data= [
       "color_amount":"2",
       "outfit_1":"",
       "outfit_2":"",
-      "next_lesson":"3a"
+      "next_lesson":"/learn/3a"
    },
    {
       "id": "3",
@@ -94,7 +94,7 @@ learning_page2_data= [
       "color_amount":"3",
       "outfit_1":"",
       "outfit_2":"",
-      "next_lesson":"4a"
+      "next_lesson":"/learn/4a"
    },
    {
       "id": "4",
@@ -109,7 +109,7 @@ learning_page2_data= [
       "color_amount":"4",
       "outfit_1":"",
       "outfit_2":"",
-      "next_lesson":"quiz/1"
+      "next_lesson":"/quiz/1"
    }
 ]
 
