@@ -14,7 +14,8 @@ learning_page1_data= [
       "comment_text": "Click to explore Orange as a base",
       "popup_text": "base color orange with 3 variances",
       "colors":["#f9cb9cff", "#f6b26bff", "#e69138ff"],
-      "color_amount": "3"
+      "color_amount": "3",
+      "next_lesson":"1b"
    },
    {
       "id": "2",
@@ -25,7 +26,8 @@ learning_page1_data= [
       "comment_text":"Click to explore red and its complement",
       "popup_text":"red and green as complementary colors",
       "colors":["#cc0000ff","#357c69ff"],
-      "color_amount":"2"
+      "color_amount":"2",
+      "next_lesson":"2b"
    },
    {
       "id": "3",
@@ -36,7 +38,8 @@ learning_page1_data= [
       "comment_text":"Click to explore the rbg triadic",
       "popup_text":"Red, blue, and green of the same hue is the most basic triadic combination",
       "colors":["#be414bff","#4bbe41ff", "#414bbeff"],
-      "color_amount":"3"
+      "color_amount":"3",
+      "next_lesson":"3b"
    },
    {
       "id": "4",
@@ -47,7 +50,8 @@ learning_page1_data= [
       "comment_text":"Click to explore the rbyg triadic",
       "popup_text":"Red, blue, yellow and green of the same hue is the most basic tetradic combination",
       "colors":["#d12e81ff","#d1cf2eff","#2ed17eff","#2e30d1ff"],
-      "color_amount":"4"
+      "color_amount":"4",
+      "next_lesson":"4b"
    }
 ]
 
@@ -62,7 +66,8 @@ learning_page2_data= [
       "colors_2":["#303030ff","#666666ff","#d9d9d9ff"],
       "color_amount":"3",
       "outfit_1":"",
-      "outfit_2":""
+      "outfit_2":"",
+      "next_lesson":"2a"
    },
    {
       "id": "2",
@@ -74,7 +79,8 @@ learning_page2_data= [
       "colors_2":["#c9daf8ff","#fff2ccff"],
       "color_amount":"2",
       "outfit_1":"",
-      "outfit_2":""
+      "outfit_2":"",
+      "next_lesson":"3a"
    },
    {
       "id": "3",
@@ -87,7 +93,8 @@ learning_page2_data= [
       "colors_2":["#e39cc3ff","#c3e39cff","#9cc3e3ff"],
       "color_amount":"3",
       "outfit_1":"",
-      "outfit_2":""
+      "outfit_2":"",
+      "next_lesson":"4a"
    },
    {
       "id": "4",
@@ -101,7 +108,8 @@ learning_page2_data= [
       "colors_2":["#fac1efff","#fae8c1ff","#c1facbff","#c1d2faff"],
       "color_amount":"4",
       "outfit_1":"",
-      "outfit_2":""
+      "outfit_2":"",
+      "next_lesson":"quiz/1"
    }
 ]
 
@@ -113,12 +121,13 @@ def home_page():
 #PAGE 1 and 2 of each combonation (call dynamically)
 @app.route('/learn/<number>a')
 def lesson_one():
-   #figure out data (theory, content, color_wheel, comment_text, popup_text, colors, color_amount)
+   #figure out data (theory, content, color_wheel, comment_text, popup_text, colors, color_amount, next_lesson)
    lesson= learning_page1_data[number]
    return render_template('lesson_one.html', lesson=lesson)
 @app.route('/learn/<number>b')
 def lesson_two():
-   #figure out data (theory, content, bases, colors_1, colors_2, color_amount, outfit_1, outfit_2)
+   #figure out data (theory, content, bases, colors_1, colors_2, color_amount, outfit_1, outfit_2, next_lesson)
+   #for next_lesson in last lesson (tetridic) make sure to change if template name is different!
    lesson= learning_page2_data[number]
    return render_template('lesson_two.html', lesson=lesson)
 
