@@ -120,15 +120,17 @@ def home_page():
 
 #PAGE 1 and 2 of each combonation (call dynamically)
 @app.route('/learn/<number>a')
-def lesson_one():
+def lesson_one(number):
    #figure out data (theory, content, color_wheel, comment_text, popup_text, colors, color_amount, next_lesson)
-   lesson= learning_page1_data[number]
+   idx = int(number)-1
+   lesson= learning_page1_data[idx]
    return render_template('lesson_one.html', lesson=lesson)
 @app.route('/learn/<number>b')
-def lesson_two():
+def lesson_two(number):
    #figure out data (theory, content, bases, colors_1, colors_2, color_amount, outfit_1, outfit_2, next_lesson)
    #for next_lesson in last lesson (tetridic) make sure to change if template name is different!
-   lesson= learning_page2_data[number]
+   idx = int(number)-1
+   lesson= learning_page2_data[idx]
    return render_template('lesson_two.html', lesson=lesson)
 
 
