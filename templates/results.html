@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .results-container {
+            border: 1px solid #ccc;
+            padding: 30px;
+            border-radius: 8px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .perfect-score { /* Optional: Add styling for perfect score message */
+            color: green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Quiz Complete!</h1>
+
+        {% if score == total %}
+            <p class="perfect-score">You really know how to apply color theory to fashion!!</p>
+            <h2>{{ score }}/{{ total }} !!</h2>
+        {% else %}
+            <p>Your final score is:</p>
+            <h2>{{ score }} out of {{ total }}</h2>
+        {% endif %}
+
+        <a href="{{ url_for('home_page') }}">Return Home</a>
+        <!-- Optionally add a button to restart quiz -->
+        <!-- <a href="{{ url_for('quiz_question', question_number=1) }}">Try Again</a> -->
+    </div>
+</body>
+</html>

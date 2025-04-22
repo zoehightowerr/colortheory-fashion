@@ -1,7 +1,10 @@
-from flask import Flask
+from flask import Flask, session, redirect, url_for
 from flask import render_template
 from flask import Response, request, jsonify
+import os
+
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
 
 learning_page1_data= [
    {
@@ -113,26 +116,117 @@ learning_page2_data= [
    }
 ]
 
+# Define data for the quiz questions
+quiz_data = [
+    {
+        "id": "1",
+        "type": "monochrome_shirt",
+        "question_text": "Given the blue pants below, select a shirt color to create a monochrome outfit.",
+        "image_url": "/static/images/blue_pants.jpg",
+        "base_color": "#4a86e8",
+        "options": [
+            {"color": "#a4c2f4", "is_correct": True},
+            {"color": "#e06666", "is_correct": False},
+            {"color": "#b6d7a8", "is_correct": False},
+            {"color": "#ffd966", "is_correct": False}
+        ],
+        "feedback_correct": "Correct! This shade of blue creates a harmonious monochrome look with the pants.",
+        "feedback_incorrect": "NOT QUITE… TRY TO MAKE A MONOCHROME OUTFIT AGAIN!",
+        "next_question": "/quiz/2"
+    },
+    {
+        "id": "2",
+        "type": "triadic_sweater",
+        "question_text": "Given the red pants and blue shirt, PICK A SWEATER COLOR TO MAKE A TRIADIC OUTFIT.",
+        "image_url": "/static/images/triadic_base.jpg",
+        "base_colors": ["#cc0000", "#1c4587"],
+        "options": [
+            {"color": "#e69138", "is_correct": False},
+            {"color": "#274e13", "is_correct": True},
+            {"color": "#674ea7", "is_correct": False},
+            {"color": "#ffd966", "is_correct": False}
+        ],
+        "feedback_correct": "Correct! Green completes the Red-Blue-Green triadic combination.",
+        "feedback_incorrect": "NOT QUITE… TRY TO MAKE A TRIADIC OUTFIT AGAIN!",
+        "next_question": "/quiz/3"
+    },
+    {
+        "id": "3",
+        "type": "complementary_top",
+        "question_text": "Given the purple item below, PICK A TOP COLOR TO MAKE A COMPLEMENTARY OUTFIT.",
+        "image_url": "/static/images/complementary_base.jpg",
+        "base_colors": ["#674ea7"],
+        "options": [
+            {"color": "#ffd966", "is_correct": True},
+            {"color": "#f6b26b", "is_correct": False},
+            {"color": "#e06666", "is_correct": False},
+            {"color": "#a4c2f4", "is_correct": False}
+        ],
+        "feedback_correct": "Correct! Yellow is complementary to purple, creating a vibrant contrast.",
+        "feedback_incorrect": "NOT QUITE… Complementary colors are opposite each other on the color wheel. TRY TO MAKE A COMPLEMENTARY OUTFIT AGAIN!",
+        "next_question": "/quiz/4"
+    },
+    {
+        "id": "4",
+        "type": "tetradic_purse",
+        "question_text": "Given the outfit below (Red, Green, Blue), PICK A PURSE COLOR TO MAKE A TETRADIC OUTFIT.",
+        "image_url": "/static/images/tetradic_base.jpg",
+        "base_colors": ["#cc0000", "#274e13", "#1c4587"],
+        "options": [
+            {"color": "#ffd966", "is_correct": True},
+            {"color": "#f6b26b", "is_correct": False},
+            {"color": "#674ea7", "is_correct": False},
+            {"color": "#a4c2f4", "is_correct": False}
+        ],
+        "feedback_correct": "Correct! Yellow completes the Red-Green-Blue-Yellow tetradic combination.",
+        "feedback_incorrect": "NOT QUITE… A tetradic scheme uses four evenly spaced colors. TRY TO MAKE A TETRADIC OUTFIT AGAIN!",
+        "next_question": "/results"
+    }
+]
+
 #HOMEPAGE
 @app.route('/')
 def home_page():
-   return render_template('home.html') 
+   session.clear()
+   return render_template('home.html')
 
-#PAGE 1 and 2 of each combonation (call dynamically)
+#PAGE 1 and 2 of each combination (call dynamically)
 @app.route('/learn/<number>a')
 def lesson_one(number):
-   #figure out data (theory, content, color_wheel, comment_text, popup_text, colors, color_amount, next_lesson)
    idx = int(number)-1
    lesson= learning_page1_data[idx]
    return render_template('lesson_one.html', lesson=lesson)
+
 @app.route('/learn/<number>b')
 def lesson_two(number):
-   #figure out data (theory, content, bases, colors_1, colors_2, color_amount, outfit_1, outfit_2, next_lesson)
-   #for next_lesson in last lesson (tetridic) make sure to change if template name is different!
    idx = int(number)-1
    lesson= learning_page2_data[idx]
    return render_template('lesson_two.html', lesson=lesson)
 
+# QUIZ ROUTE
+@app.route('/quiz/<question_number>')
+def quiz_question(question_number):
+    try:
+        if question_number == '1':
+            session['score'] = 0
+            session['answered_status'] = {}
+
+        idx = int(question_number) - 1
+        if 0 <= idx < len(quiz_data):
+            question = quiz_data[idx]
+            current_score = session.get('score', 0)
+            return render_template('quiz.html', question=question, current_score=current_score)
+        else:
+            return render_template('home.html')
+    except ValueError:
+        return "Invalid question number", 400
+
+# RESULTS PAGE
+@app.route('/results')
+def results_page():
+    final_score = session.get('score', 0)
+    total_questions = len(quiz_data)
+    return render_template('results.html', score=final_score, total=total_questions)
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
