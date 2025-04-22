@@ -1,1 +1,92 @@
-
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    background-color: #fefef8;
+    color: #222;
+  }
+  
+  header {
+    background-color: #f89d3f;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  nav a {
+    margin: 0 1rem;
+    text-decoration: none;
+    color: #222;
+    font-weight: 500;
+  }
+  
+  main .title {
+    padding: 3rem 2rem 1rem;
+    font-size: 3rem;
+    font-weight: 800;
+    text-align: center;
+  }
+  
+  .subtext {
+    font-size: 1.5rem;
+    padding: 0 2rem 3rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .content-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2rem;
+  }
+  
+  .content-section img {
+    width: 350px;
+    height: auto;
+  }
+  
+  .text-box {
+    max-width: 400px;
+    padding: 1rem;
+    border: 2px solid #f89d3f;
+    border-radius: 20px;
+  }
+  
+  .text-box ul {
+    padding-left: 1.2rem;
+  }
+  
+  .text-box li {
+    padding: 0.5rem 0;
+  }
+  
+  .popup {
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border: 2px solid #f89d3f;
+    display: inline-block;
+    margin-top: 1rem;
+    border-radius: 20px;
+  }
+  
+  .color-examples {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding-bottom: 4rem;
+  }
+  
+  .color-box {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+  }
+  
