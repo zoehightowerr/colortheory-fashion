@@ -39,6 +39,26 @@ body {
     text-align: center;
   }
   
+  .btn {
+    background-color: #f89d3f;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  
+  .btn:hover {
+    opacity: 0.9;
+  }
+  
+  .start-container {
+    text-align: center;
+    margin: 2rem 0 4rem;
+  }
+  
   .content-section {
     display: flex;
     align-items: center;
@@ -89,4 +109,6 @@ body {
     height: 120px;
     border-radius: 20px;
   }
+
+
   
