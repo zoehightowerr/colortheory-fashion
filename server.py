@@ -111,7 +111,7 @@ learning_page2_data= [
       "colors_2":["#fac1efff","#fae8c1ff","#c1facbff","#c1d2faff"],
       "color_amount":"4",
       "outfit_1":"/static/tetradic_1.png",
-      "outfit_2":"/static/tetradic_2.png",
+      "outfit_2":"/static/tetratic_2.png",
       "next_lesson":"/quiz/1"
    }
 ]
