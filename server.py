@@ -68,8 +68,8 @@ learning_page2_data= [
       "colors_1":["#e17083ff","#eab3bfff", "#f1d2d9ff"],
       "colors_2":["#303030ff","#666666ff","#d9d9d9ff"],
       "color_amount":"3",
-      "outfit_1":"",
-      "outfit_2":"",
+      "outfit_1":"/static/monochrome_1.png",
+      "outfit_2":"/static/monochrome_2.png",
       "next_lesson":"/learn/2a"
    },
    {
@@ -81,8 +81,8 @@ learning_page2_data= [
       "colors_1":["#a5b4a5ff","#f1d2d9ff"],
       "colors_2":["#c9daf8ff","#fff2ccff"],
       "color_amount":"2",
-      "outfit_1":"",
-      "outfit_2":"",
+      "outfit_1":"/static/complementary_1.png",
+      "outfit_2":"/static/complementary_2.png",
       "next_lesson":"/learn/3a"
    },
    {
@@ -95,8 +95,8 @@ learning_page2_data= [
       "colors_1":["#980000ff","#274e13ff","#1c4587ff"],
       "colors_2":["#e39cc3ff","#c3e39cff","#9cc3e3ff"],
       "color_amount":"3",
-      "outfit_1":"",
-      "outfit_2":"",
+      "outfit_1":"/static/triadic_1.png",
+      "outfit_2":"/static/triadic_2.png",
       "next_lesson":"/learn/4a"
    },
    {
@@ -110,8 +110,8 @@ learning_page2_data= [
       "colors_1":["#980000ff","#274e13ff","#1c4587ff","#f1c232ff"],
       "colors_2":["#fac1efff","#fae8c1ff","#c1facbff","#c1d2faff"],
       "color_amount":"4",
-      "outfit_1":"",
-      "outfit_2":"",
+      "outfit_1":"/static/tetradic_1.png",
+      "outfit_2":"/static/tetradic_2.png",
       "next_lesson":"/quiz/1"
    }
 ]
