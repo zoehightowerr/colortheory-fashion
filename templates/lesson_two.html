@@ -6,6 +6,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ lesson.theory }} Fashion</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <style>
+    .next-button {
+      background-color: #f4a259;
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease;
+    }
+
+    .next-button:hover {
+      background-color: #e98b33;
+    }
+
+    .lesson-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3rem;
+      padding: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .examples {
+      max-width: 500px;
+    }
+
+    .examples-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2rem 1rem 4rem;
+    }
+
+    .example-pair {
+      position: relative;
+      width: 500px;
+      height: 120px;
+      display: flex;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .color-half {
+      width: 50%;
+      height: 100%;
+    }
+
+    .label {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 10% auto;
+      padding: 30px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    }
+
+    .close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .custom-popup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .popup-layout {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .color-swatches {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .swatch {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      border: 2px solid #dd6f1f;
+    }
+
+    .popup-image img {
+      max-height: 500px;
+      max-width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -18,30 +139,107 @@
       <a href="/quiz/1">Quiz</a>
     </nav>
   </header>
+
   <main>
     <div class="title">{{ lesson.theory | upper }}</div>
 
-    <div class="text-box">
-      <ul>
-        {% for line in lesson.content %}
-          <li>{{ line }}</li>
-        {% endfor %}
-      </ul>
-    </div>
+    <div class="lesson-section">
+      <div class="text-box">
+        <ul>
+          {% for line in lesson.content %}
+            <li>{{ line }}</li>
+          {% endfor %}
+        </ul>
+      </div>
 
-    <div class="title">EXAMPLES: {{ lesson.bases[0] }}</div>
-    <div class="color-examples">
-      {% for color in lesson.colors_1 %}
-        <div class="color-box" style="background-color: {{ color }};"></div>
-      {% endfor %}
-    </div>
+      <div class="examples">
+        <div class="title">EXAMPLES:</div>
 
-    <div class="title">EXAMPLES: {{ lesson.bases[1] }}</div>
-    <div class="color-examples">
-      {% for color in lesson.colors_2 %}
-        <div class="color-box" style="background-color: {{ color }};"></div>
-      {% endfor %}
+        <div id="trigger1" style="cursor: pointer;">
+          <div class="title">{{ lesson.bases[0] }}</div>
+          <div class="color-examples">
+            {% for color in lesson.colors_1 %}
+              <div class="color-box" style="background-color: {{ color }};"></div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div id="trigger2" style="cursor: pointer; margin-top: 2rem;">
+          <div class="title">{{ lesson.bases[1] }}</div>
+          <div class="color-examples">
+            {% for color in lesson.colors_2 %}
+              <div class="color-box" style="background-color: {{ color }};"></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
     </div>
   </main>
+
+  <div id="popup1" class="modal">
+    <div class="modal-content custom-popup">
+      <span class="close" id="close1">&times;</span>
+      <div class="popup-layout">
+        <div class="color-swatches">
+          {% for color in lesson.colors_1 %}
+            <div class="swatch" style="background-color: {{ color }}"></div>
+          {% endfor %}
+        </div>
+        <div class="popup-image">
+          <img src="{{ lesson.outfit_1 }}" alt="Outfit Example 1">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup2" class="modal">
+    <div class="modal-content custom-popup">
+      <span class="close" id="close2">&times;</span>
+      <div class="popup-layout">
+        <div class="color-swatches">
+          {% for color in lesson.colors_2 %}
+            <div class="swatch" style="background-color: {{ color }}"></div>
+          {% endfor %}
+        </div>
+        <div class="popup-image">
+          <img src="{{ lesson.outfit_2 }}" alt="Outfit Example 2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const popup1 = document.getElementById('popup1');
+    const popup2 = document.getElementById('popup2');
+    const trigger1 = document.getElementById('trigger1');
+    const trigger2 = document.getElementById('trigger2');
+    const close1 = document.getElementById('close1');
+    const close2 = document.getElementById('close2');
+
+    trigger1.onclick = () => {
+      popup1.style.display = 'block';
+    };
+
+    trigger2.onclick = () => {
+      popup2.style.display = 'block';
+    };
+
+    close1.onclick = () => {
+      popup1.style.display = 'none';
+    };
+
+    close2.onclick = () => {
+      popup2.style.display = 'none';
+    };
+
+    window.onclick = (e) => {
+      if (e.target === popup1) {
+        popup1.style.display = 'none';
+      }
+      if (e.target === popup2) {
+        popup2.style.display = 'none';
+      }
+    };
+  </script>
 </body>
 </html>
