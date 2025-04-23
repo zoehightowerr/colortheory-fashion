@@ -54,12 +54,12 @@
       margin-bottom: 20px;
     }
 
-    .next-button-container {
+  .next-button-container {
   text-align: right;
   padding: 30px 50px 50px 0;
 }
 
-.next-button {
+.next {
   background-color: #f4a259;
   color: #1a1a1a;
   text-decoration: none;
@@ -71,7 +71,7 @@
   transition: background-color 0.3s ease;
 }
 
-.next-button:hover {
+.next:hover {
   background-color: #e98b33;
 }
     
@@ -105,6 +105,10 @@
         <div class="popup">{{ lesson.comment_text }}</div>
       </div>
     </section>
+
+    <div class="next-button-container">
+      <a href="{{lesson.next_lesson}}" class="next">NEXT</a>
+    </div>
   </main>
 
   <!-- Modal Structure -->
@@ -141,10 +145,6 @@
       }
     });
   </script>
-
-<div class="next-button-container">
-  <a href="{{lesson.next_lesson}}" class="next-button">NEXT</a>
-</div>
 
 </body>
 </html>
