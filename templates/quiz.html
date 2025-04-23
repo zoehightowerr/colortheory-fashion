@@ -1,115 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Theory Quiz</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        .quiz-container {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 600px;
-            text-align: center;
-        }
-        .question-image {
-            max-width: 80%;
-            height: auto;
-            margin-bottom: 20px;
-            border: 1px solid #eee;
-        }
-        .options-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .color-option {
-            width: 80px;
-            height: 80px;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .color-option:hover {
-            transform: scale(1.1);
-            border-color: #333;
-        }
-        .feedback {
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        .feedback.correct {
-            color: green;
-        }
-        .feedback.incorrect {
-            color: red;
-        }
-        .next-button {
-            display: none; /* Hidden initially */
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-    </style>
-</head>
+{% extends "layout.html" %}
+
+{% block content %}
 <body>
 
-    <div class="quiz-container">
-        <h2>Quiz Question {{ question.id }}</h2>
-        <p>{{ question.question_text }}</p>
+<div class="quiz-wrapper">
+    <div class="quiz-header">
+        <h1>QUIZ</h1>
+        <span class="quiz-page-indicator">{{ question.page_number }}</span>
+    </div>
 
-        {% if question.image_url %}
-        <img src="{{ url_for('static', filename=question.image_url.split('/static/')[1]) }}" alt="Quiz Image" class="question-image">
-        {% endif %}
+    <div class="quiz-card">
+
+        <img src="{{ question.image_url }}" alt="Character" class="question-image">
+
+
+        <div class="speech-bubble">
+            <p>{{ question.question_text }}</p>
+        </div>
 
         <div class="options-container">
             {% for option in question.options %}
-            <div class="color-option"
+            <div class="color-dot"
                  style="background-color: {{ option.color }};"
                  onclick="checkAnswer('{{ option.is_correct }}', this)">
             </div>
             {% endfor %}
         </div>
 
-        <div id="feedback" class="feedback"></div>
-        <button id="next-button" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next Question</button>
+        <div id="feedbackBox" class="feedback-box"><p id="feedbackText"></p></div>
+
+        <button id="nextButton" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next</button>
+
     </div>
+</div>
 
-    <script>
-        function checkAnswer(isCorrectStr, selectedOption) {
-            const isCorrect = (isCorrectStr === 'True'); // Convert string from Flask to boolean
-            const feedbackDiv = document.getElementById('feedback');
-            const nextButton = document.getElementById('next-button');
-            const options = document.querySelectorAll('.color-option');
+<script>
+function checkAnswer(isCorrectStr, selectedOption) {
+    const isCorrect = (isCorrectStr === 'True');
+    const feedbackDiv = document.querySelector('.feedbackBox p');
+    const nextButton = document.getElementById('nextButton');
+    const options = document.querySelectorAll('.color-dot');
 
-            // Disable further clicks
-            options.forEach(opt => opt.onclick = null);
-            options.forEach(opt => opt.style.cursor = 'default');
-            options.forEach(opt => opt.classList.remove('selected')); // Remove any previous selection highlight if needed
-            selectedOption.style.borderColor = '#333'; // Highlight selected
 
-            if (isCorrect) {
-                feedbackDiv.textContent = "{{ question.feedback_correct }}";
-                feedbackDiv.className = 'feedback correct';
-            } else {
-                feedbackDiv.textContent = "{{ question.feedback_incorrect }}";
-                feedbackDiv.className = 'feedback incorrect';
-            }
 
-            nextButton.style.display = 'block'; // Show the next button
-        }
-    </script>
+if (isCorrect) {
+    fetch('/submit_answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_correct: true })
+    });
+} else {
+    fetch('/submit_answer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ is_correct: false })
+    });
+}
+
+    feedbackText.innerHTML = isCorrect ? "{{ question.feedback_correct }}" : "{{ question.feedback_incorrect }}";
+    feedbackBox.style.display = 'block';
+    nextButton.style.display = 'block';
+
+}
+</script>
 
 </body>
-</html>
+{% endblock %}
