@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<body>
+
+    <div class="quiz-container">
+        <h2>Quiz Question {{ question.id }}</h2>
+        <p>{{ question.question_text }}</p>
+
+        {% if question.image_url %}
+        <img src="{{ url_for('static', filename=question.image_url.split('/static/')[1]) }}" alt="Quiz Image" class="question-image">
+        {% endif %}
+
+        <div class="options-container">
+            {% for option in question.options %}
+            <div class="color-option"
+                 style="background-color: {{ option.color }};"
+                 onclick="checkAnswer('{{ option.is_correct }}', this)">
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+        <button id="next-button" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next Question</button>
+    </div>
+
+    <script>
+        function checkAnswer(isCorrectStr, selectedOption) {
+            const isCorrect = (isCorrectStr === 'True');
+            const feedbackDiv = document.getElementById('feedback');
+            const nextButton = document.getElementById('next-button');
+            const options = document.querySelectorAll('.color-option');
+
+            options.forEach(opt => opt.onclick = null);
+            options.forEach(opt => opt.style.cursor = 'default');
+            options.forEach(opt => opt.classList.remove('selected')); // Remove any previous selection highlight if needed
+            selectedOption.style.borderColor = '#333'; // Highlight selected
+
+            if (isCorrect) {
+                feedbackDiv.textContent = "{{ question.feedback_correct }}";
+                feedbackDiv.className = 'feedback correct';
+		fetch('/submit_answer', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ is_correct: true })
+		});
+            } else {
+                feedbackDiv.textContent = "{{ question.feedback_incorrect }}";
+                feedbackDiv.className = 'feedback incorrect';
+		fetch('/submit_answer', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({ is_correct: false })
+		});
+            }
+
+            nextButton.style.display = 'block'; // Show the next button
+        }
+    </script>
+
+</body>
+{% endblock %}

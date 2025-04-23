@@ -221,6 +221,15 @@ def quiz_question(question_number):
     except ValueError:
         return "Invalid question number", 400
 
+@app.route('/submit_answer', methods=['POST'])
+def submit_answer():
+	data = request.get_json()
+	is_correct = data.get('is_correct')
+	if is_correct:
+		session['score'] = session.get('score', 0) + 1
+
+	return jsonify({'score': session['score']})
+
 # RESULTS PAGE
 @app.route('/results')
 def results_page():

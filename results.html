@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+
+<body>
+    <div class="results-container">
+        <h1>Quiz Complete!</h1>
+
+        {% if score == total %}
+            <p class="perfect-score">You really know how to apply color theory to fashion!!</p>
+            <h2>{{ score }}/{{ total }} !!</h2>
+        {% else %}
+            <p>Your final score is:</p>
+            <h2>{{ score }} out of {{ total }}</h2>
+        {% endif %}
+
+        <a href="{{ url_for('home_page') }}">Return Home</a>
+        <!-- Optionally add a button to restart quiz -->
+        <!-- <a href="{{ url_for('quiz_question', question_number=1) }}">Try Again</a> -->
+    </div>
+</body>
+{% endblock %}
