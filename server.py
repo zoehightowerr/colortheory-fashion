@@ -197,15 +197,18 @@ def home_page():
 #PAGE 1 and 2 of each combination (call dynamically)
 @app.route('/learn/<number>a')
 def lesson_one(number):
-   idx = int(number)-1
-   lesson= learning_page1_data[idx]
-   return render_template('lesson_one.html', lesson=lesson)
+    # record page‐entry time
+    session[f'lesson_{number}_entered_at'] = datetime.utcnow().isoformat()
+    idx = int(number)-1
+    lesson = learning_page1_data[idx]
+    return render_template('lesson_one.html', lesson=lesson)
 
 @app.route('/learn/<number>b')
 def lesson_two(number):
-   idx = int(number)-1
-   lesson= learning_page2_data[idx]
-   return render_template('lesson_two.html', lesson=lesson)
+    session[f'lesson_{number}_entered_at'] = datetime.utcnow().isoformat()
+    idx = int(number)-1
+    lesson = learning_page2_data[idx]
+    return render_template('lesson_two.html', lesson=lesson)
 
 # QUIZ ROUTE
 @app.route('/quiz/<question_number>')
