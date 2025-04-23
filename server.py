@@ -120,9 +120,10 @@ learning_page2_data= [
 quiz_data = [
     {
         "id": "1",
-        "type": "monochrome_shirt",
-        "question_text": "Given the blue pants below, select a shirt color to create a monochrome outfit.",
-        "image_url": "/static/images/blue_pants.jpg",
+	"page_number": "1/4",
+        "theme": "monochrome",
+        "question_text": "PICK A TOP COLOR TO MAKE A MONOCHROME OUTFIT",
+        "image_url": "/static/monochrome.png",
         "base_color": "#4a86e8",
         "options": [
             {"color": "#a4c2f4", "is_correct": True},
@@ -130,15 +131,16 @@ quiz_data = [
             {"color": "#b6d7a8", "is_correct": False},
             {"color": "#ffd966", "is_correct": False}
         ],
-        "feedback_correct": "Correct! This shade of blue creates a harmonious monochrome look with the pants.",
+        "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A MONOCHROME OUTFIT AGAIN!",
         "next_question": "/quiz/2"
     },
     {
         "id": "2",
-        "type": "triadic_sweater",
-        "question_text": "Given the red pants and blue shirt, PICK A SWEATER COLOR TO MAKE A TRIADIC OUTFIT.",
-        "image_url": "/static/images/triadic_base.jpg",
+	"page_number": "2/4",
+        "theme": "triadic",
+        "question_text": "PICK A SWEATER COLOR TO MAKE A TRIADIC OUTFIT",
+        "image_url": "/static/triadic.png",
         "base_colors": ["#cc0000", "#1c4587"],
         "options": [
             {"color": "#e69138", "is_correct": False},
@@ -146,15 +148,16 @@ quiz_data = [
             {"color": "#674ea7", "is_correct": False},
             {"color": "#ffd966", "is_correct": False}
         ],
-        "feedback_correct": "Correct! Green completes the Red-Blue-Green triadic combination.",
+        "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A TRIADIC OUTFIT AGAIN!",
         "next_question": "/quiz/3"
     },
     {
         "id": "3",
-        "type": "complementary_top",
-        "question_text": "Given the purple item below, PICK A TOP COLOR TO MAKE A COMPLEMENTARY OUTFIT.",
-        "image_url": "/static/images/complementary_base.jpg",
+	"page_number": "3/4",
+        "theme": "complementary",
+        "question_text": "PICK A TOP COLOR TO MAKE A COMPLEMENTARY OUTFIT",
+        "image_url": "/static/complementary.png",
         "base_colors": ["#674ea7"],
         "options": [
             {"color": "#ffd966", "is_correct": True},
@@ -162,15 +165,16 @@ quiz_data = [
             {"color": "#e06666", "is_correct": False},
             {"color": "#a4c2f4", "is_correct": False}
         ],
-        "feedback_correct": "Correct! Yellow is complementary to purple, creating a vibrant contrast.",
-        "feedback_incorrect": "NOT QUITE… Complementary colors are opposite each other on the color wheel. TRY TO MAKE A COMPLEMENTARY OUTFIT AGAIN!",
+        "feedback_correct": "GREAT WORK",
+        "feedback_incorrect": "NOT QUITE… TRY TO MAKE A COMPLEMENTARY OUTFIT AGAIN!",
         "next_question": "/quiz/4"
     },
     {
         "id": "4",
-        "type": "tetradic_purse",
-        "question_text": "Given the outfit below (Red, Green, Blue), PICK A PURSE COLOR TO MAKE A TETRADIC OUTFIT.",
-        "image_url": "/static/images/tetradic_base.jpg",
+	"page_number": "4/4",
+        "theme": "tetradic",
+        "question_text": "PICK A PURSE COLOR TO MAKE A TETRADIC OUTFIT.",
+        "image_url": "/static/tetradic.png",
         "base_colors": ["#cc0000", "#274e13", "#1c4587"],
         "options": [
             {"color": "#ffd966", "is_correct": True},
@@ -178,8 +182,8 @@ quiz_data = [
             {"color": "#674ea7", "is_correct": False},
             {"color": "#a4c2f4", "is_correct": False}
         ],
-        "feedback_correct": "Correct! Yellow completes the Red-Green-Blue-Yellow tetradic combination.",
-        "feedback_incorrect": "NOT QUITE… A tetradic scheme uses four evenly spaced colors. TRY TO MAKE A TETRADIC OUTFIT AGAIN!",
+        "feedback_correct": "GREAT WORK",
+        "feedback_incorrect": "NOT QUITE… TRY TO MAKE A TETRADIC OUTFIT AGAIN!",
         "next_question": "/results"
     }
 ]
@@ -221,12 +225,23 @@ def quiz_question(question_number):
     except ValueError:
         return "Invalid question number", 400
 
+@app.route('/submit_answer', methods=['POST'])
+def submit_answer():
+	data = request.get_json()
+	is_correct = data.get('is_correct')
+	question_number = data.get('question_number')
+	if is_correct:
+		session['score'] = session.get('score', 0) + 1
+
+	return jsonify({'score': session['score']})
+
 # RESULTS PAGE
 @app.route('/results')
 def results_page():
     final_score = session.get('score', 0)
     total_questions = len(quiz_data)
     return render_template('results.html', score=final_score, total=total_questions)
+
 
 if __name__ == '__main__':
    app.run(debug = True, port=5001)
