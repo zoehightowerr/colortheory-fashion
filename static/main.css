@@ -4,7 +4,10 @@ body {
     background-color: #fefef8;
     color: #222;
   }
-  
+header .logo-link {
+    text-decoration: none;
+    color: inherit;
+}
   header {
     background-color: #f89d3f;
     padding: 1rem;
