@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{ lesson.theory }} Lesson</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+  <link href='https://fonts.googleapis.com/css?family=DM Serif Display' rel='stylesheet'>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <style>
+   header .logo-link {
+      text-decoration: none;
+      color: inherit;
+    }
     .modal {
       display: none;
       position: fixed;
@@ -80,7 +86,9 @@
 </head>
 <body>
   <header>
-    <div class="logo">Color Your Closet</div>
+    <a href="{{ url_for('home_page') }}" class="logo-link">
+      <div class="logo">COLOR YOUR CLOSET</div>
+    </a>
     <nav>
       <a href="/learn/1a">Monochrome</a>
       <a href="/learn/2a">Complementary</a>
