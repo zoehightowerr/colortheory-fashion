@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Color Your Closet</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Color Your Closet</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <link href='https://fonts.googleapis.com/css?family=DM Serif Display' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 </head>
 <body>
-  <header>
-    <a href="{{ url_for('home_page') }}" class="logo-link">
-      <div class="logo">COLOR YOUR CLOSET</div>
-    </a>
-    <nav>
-      <a href="/learn/1a">Monochrome</a>
-      <a href="/learn/2a">Complementary</a>
-      <a href="/learn/3a">Triadic</a>
-      <a href="/learn/4a">Tetradic</a>
-      <a href="/quiz/1">Quiz</a>
-    </nav>
-  </header>
-	<main class="container">
-		{% block content %}
-		{% endblock %}
-	</main>
+    <header style="background-color: #77a4ef; color: #efefef; font-family: 'DM Serif Display'; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="{{ url_for('home_page') }}" class="logo-link" style="text-decoration: none; color: inherit;">
+            <div class="logo" style="font-size: 1.5em; font-weight: bold;">COLOR YOUR CLOSET</div>
+        </a>
+        <nav>
+            <a href="/learn/1a" style="color: #efefef; text-decoration: none; margin-left: 20px; font-size: 1em; font-family: 'Poppins';">Monochrome</a>
+            <a href="/learn/2a" style="color: #efefef; text-decoration: none; margin-left: 20px; font-size: 1em; font-family: 'Poppins';">Complementary</a>
+            <a href="/learn/3a" style="color: #efefef; text-decoration: none; margin-left: 20px; font-size: 1em; font-family: 'Poppins';">Triadic</a>
+            <a href="/learn/4a" style="color: #efefef; text-decoration: none; margin-left: 20px; font-size: 1em; font-family: 'Poppins';">Tetradic</a>
+            <a href="/quiz/1" style="color: #efefef; text-decoration: none; margin-left: 20px; font-size: 1em; font-family: 'Poppins';">Quiz</a>
+        </nav>
+    </header>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
 </body>
 </html>
-
-
