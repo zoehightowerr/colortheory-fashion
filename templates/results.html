@@ -7,13 +7,11 @@
         <h1 style="color: #77a4ef; font-family: 'DM Serif Display'; text-align: center;">SCORE</h1>
     </div>
     <div class="quiz-card">
-        <div class="quiz-content" style="flex-direction: column; align-items: center;">
-            {% if image_url %}
-            <div class="character-container" style="margin-bottom: 1rem;">
-                <img src="{{ image_url }}" alt="Character" class="question-image">
+        <div class="quiz-content" style="display: flex; align-items: flex-start;">
+            <div class="character-container">
+                <img src="{{ url_for('static', filename='quiz_avatar.png') }}" alt="Character" class="question-image">
             </div>
-            {% endif %}
-            <div class="question-options-container" style="align-items: center; text-align: center;">
+            <div class="question-options-container" style="align-items: flex-start; text-align: left;">
                 <div class="quiz-stars" style="margin-bottom: 1rem;">
                     {% for i in range(4) %}
                         {% if i < visual_score %}

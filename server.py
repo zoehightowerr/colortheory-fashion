@@ -212,6 +212,10 @@ def lesson_two(number):
     return render_template('lesson_two.html', lesson=lesson)
 
 # QUIZ ROUTE
+@app.route('/quiz')
+def quiz_start():
+    return render_template('quiz_start.html')
+
 @app.route('/quiz/<question_number>')
 def quiz_question(question_number):
     try:
