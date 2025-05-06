@@ -4,63 +4,104 @@
 <body>
 
 <div class="quiz-wrapper">
-    <div class="quiz-header">
-        <h1>QUIZ</h1>
-        <span class="quiz-page-indicator">{{ question.page_number }}</span>
+    <div class="quiz-header" style="display: flex; justify-content: space-between; align-items: center; background-color: #f7ecdc; padding-top: 1rem; padding-bottom: 1rem; padding-left: 14rem;">
+        <div style="text-align: center; flex-grow: 1;">
+            <h1 style="color: #77a4ef; font-family: 'DM Serif Display'; margin: 0;">QUIZ</h1>
+        </div>
+        <div class="quiz-stars">
+            {% for i in range(4) %}
+                {% if i < visual_score %}
+                    <span style="color: #77a4ef; font-size: 1.5em;">★</span>
+                {% else %}
+                    <span style="color: #77a4ef; font-size: 1.5em;">☆</span>
+                {% endif %}
+            {% endfor %}
+        </div>
     </div>
 
     <div class="quiz-card">
-
-        <img src="{{ question.image_url }}" alt="Character" class="question-image">
-
-
-        <div class="speech-bubble">
-            <p>{{ question.question_text }}</p>
-        </div>
-
-        <div class="options-container">
-            {% for option in question.options %}
-            <div class="color-dot"
-                 style="background-color: {{ option.color }};"
-                 onclick="checkAnswer('{{ option.is_correct }}', this)">
+        <div class="quiz-content">
+            <div class="character-container">
+                <img src="{{ question.image_url }}" alt="Character" class="question-image">
             </div>
-            {% endfor %}
+            <div class="question-options-container">
+                <div class="speech-bubble">
+                    <p>{{ question.question_text }}</p>
+                </div>
+
+                <div class="options-container">
+                    {% for option in question.options %}
+                    <div class="color-dot"
+                         style="background-color: {{ option.color }};"
+                         onclick="checkAnswer('{{ option.is_correct }}', this)">
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div id="feedbackBox" class="feedback-box"><p id="feedbackText"></p></div>
+
+                <div class="button-container">
+                    {% if question.page_number|int > 1 %}
+                    <button class="prev-button" onclick="window.location.href='{{ question.prev_question }}'">Previous</button>
+                    {% endif %}
+                    {% if question.next_question %}
+                    <button id="nextButton" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next</button>
+                    {% else %}
+                    <button id="resultsButton" class="next-button" style="display:none;" onclick="window.location.href='/results'">See Results</button>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-
-        <div id="feedbackBox" class="feedback-box"><p id="feedbackText"></p></div>
-
-        <button id="nextButton" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next</button>
-
     </div>
 </div>
 
 <script>
+let answeredCorrectly = false;
+let selectedWrongOption = null;
+
 function checkAnswer(isCorrectStr, selectedOption) {
     const isCorrect = (isCorrectStr === 'True');
     const feedbackDiv = document.querySelector('.feedbackBox p');
     const nextButton = document.getElementById('nextButton');
-    const options = document.querySelectorAll('.color-dot');
+    const resultsButton = document.getElementById('resultsButton');
 
+    // Remove previous wrong answer outline
+    if (selectedWrongOption) {
+        selectedWrongOption.style.borderColor = '#ccc';
+    }
 
-
-if (isCorrect) {
-    fetch('/submit_answer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ is_correct: true })
-    });
-} else {
-    fetch('/submit_answer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ is_correct: false })
-    });
-}
-
-    feedbackText.innerHTML = isCorrect ? "{{ question.feedback_correct }}" : "{{ question.feedback_incorrect }}";
-    feedbackBox.style.display = 'block';
-    nextButton.style.display = 'block';
-
+    if (isCorrect) {
+        answeredCorrectly = true;
+        fetch('/submit_answer', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_correct: true })
+        }).then(response => response.json()).then(data => {
+            if (!"{{ question.next_question }}") {
+                resultsButton.style.display = 'block';
+            } else {
+                nextButton.style.display = 'block';
+            }
+        });
+        feedbackText.innerHTML = "{{ question.feedback_correct }}";
+        feedbackBox.style.display = 'block';
+        selectedOption.style.borderColor = 'green';
+        document.querySelectorAll('.color-dot').forEach(option => {
+            if (option !== selectedOption && option.getAttribute('onclick').includes("'True'")) {
+                option.style.borderColor = 'lightgreen';
+            }
+        });
+    } else {
+        fetch('/submit_answer', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_correct: false })
+        });
+        feedbackText.innerHTML = "{{ question.feedback_incorrect }}";
+        feedbackBox.style.display = 'block';
+        selectedOption.style.borderColor = 'red';
+        selectedWrongOption = selectedOption;
+    }
 }
 </script>
 

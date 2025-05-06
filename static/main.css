@@ -127,18 +127,15 @@ main .title {
 }
 
 .question-image {
-    max-width: 80%;
+    max-width: 100%;
     height: auto;
-    margin-bottom: 20px;
-    border: 1px solid #eee;
 }
 
 .options-container {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 30px;
-    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
 }
 
 .feedback {
@@ -147,11 +144,31 @@ main .title {
 }
 
 .next-button {
-    display: none; /* Hidden initially */
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1em;
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #77a4ef;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
+    text-decoration: none;
+}
+
+.prev-button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #f0ad4e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.prev-button:hover {
+    opacity: 0.9;
 }
 
 .quiz-wrapper {
@@ -161,6 +178,7 @@ main .title {
     flex-direction: column;
     align-items: center;
     font-family: 'Poppins', sans-serif;
+    padding-bottom: 2rem; /* Add some padding at the bottom */
 }
 
 .quiz-header {
@@ -179,6 +197,11 @@ main .title {
     font-weight: 600;
 }
 
+.quiz-stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .quiz-card {
     background-color: #efefef;
     border: 2px solid #77a4ef;
@@ -187,36 +210,54 @@ main .title {
     margin-top: 2rem;
     max-width: 900px;
     width: 90%;
-    text-align: center;
+}
+
+.quiz-content {
+    display: flex;
+    align-items: flex-start; /* Align items vertically at the start */
+    gap: 6rem; /* Space between avatar and questions/options */
+}
+
+.character-container {
+    flex-shrink: 0; /* Prevent the character image from shrinking */
+    max-width: 300px;
 }
 
 .question-image {
     max-width: 100%;
     height: auto;
+    display: block;
 }
 
-.feedback-box {
-    display: none;
-    margin: 1.5rem auto;
-    padding: 1rem 1.5rem;
-    background-color: white;
+.question-options-container {
+    flex-grow: 1; /* Allow the question and options to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+}
+
+.speech-bubble {
+    background: #fff;
     border: 2px solid #77a4ef;
-    border-radius: 16px;
-    max-width: 500px;
+    border-radius: 18px;
+    padding: 1.2rem;
+    max-width: 400px;
     font-size: 1.25rem;
     font-weight: 600;
+    margin-bottom: 1rem; /* Space below the speech bubble */
 }
 
 .options-container {
     display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
+    gap: 1rem;
+    margin-bottom: 1.5rem; /* Space below the options */
+    flex-wrap: wrap; /* Allow options to wrap onto the next line */
+    justify-content: flex-start; /* Align options to the left */
 }
 
 .color-dot {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid #ccc;
     cursor: pointer;
@@ -228,26 +269,20 @@ main .title {
     border-color: #000;
 }
 
-.next-button {
+.feedback-box {
     display: none;
-    margin-top: 2rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #77a4ef;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.speech-bubble {
-    background: #fff;
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
+    background-color: white;
     border: 2px solid #77a4ef;
-    border-radius: 18px;
-    padding: 1.2rem;
-    max-width: 300px;
+    border-radius: 16px;
     font-size: 1.25rem;
     font-weight: 600;
-    margin: 1rem auto;
+    text-align: center;
+}
+
+.button-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
 }

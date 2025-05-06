@@ -217,13 +217,15 @@ def quiz_question(question_number):
     try:
         if question_number == '1':
             session['score'] = 0
+            session['visual_score'] = 0
             session['answered_status'] = {}
 
         idx = int(question_number) - 1
         if 0 <= idx < len(quiz_data):
             question = quiz_data[idx]
             current_score = session.get('score', 0)
-            return render_template('quiz.html', question=question, current_score=current_score)
+            visual_score = session.get('visual_score', 0)
+            return render_template('quiz.html', question=question, current_score=current_score, visual_score=visual_score)
         else:
             return render_template('home.html')
     except ValueError:
@@ -231,20 +233,22 @@ def quiz_question(question_number):
 
 @app.route('/submit_answer', methods=['POST'])
 def submit_answer():
-	data = request.get_json()
-	is_correct = data.get('is_correct')
-	question_number = data.get('question_number')
-	if is_correct:
-		session['score'] = session.get('score', 0) + 1
+    data = request.get_json()
+    is_correct = data.get('is_correct')
 
-	return jsonify({'score': session['score']})
+    if is_correct:
+        session['score'] = session.get('score', 0) + 1
+        session['visual_score'] = session.get('visual_score', 0) + 1
+
+    return jsonify({'score': session['score']})
 
 # RESULTS PAGE
 @app.route('/results')
 def results_page():
     final_score = session.get('score', 0)
     total_questions = len(quiz_data)
-    return render_template('results.html', score=final_score, total=total_questions)
+    visual_score = session.get('visual_score', 0)
+    return render_template('results.html', score=final_score, total=total_questions, visual_score=visual_score)
 
 
 if __name__ == '__main__':

@@ -1,25 +1,39 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-
 <body>
 <div class="quiz-wrapper">
-	<div class="quiz-header">
-		<h1>QUIZ COMPLETE</h1>
-	</div>
+    <div class="quiz-header" style="justify-content: center;">
+        <h1 style="color: #77a4ef; font-family: 'DM Serif Display'; text-align: center;">SCORE</h1>
+    </div>
     <div class="quiz-card">
-	<div class="speech-bubble">
-
-        {% if score == total %}
-            <p>You really know how to apply color theory to fashion!!</p>
-            <h2>{{ score }}/{{ total }} !!</h2>
-        {% else %}
-            <p>Your final score is:</p>
-            <h2>{{ score }} out of {{ total }}</h2>
-        {% endif %}
-
-	</div>
+        <div class="quiz-content" style="flex-direction: column; align-items: center;">
+            {% if image_url %}
+            <div class="character-container" style="margin-bottom: 1rem;">
+                <img src="{{ image_url }}" alt="Character" class="question-image">
+            </div>
+            {% endif %}
+            <div class="question-options-container" style="align-items: center; text-align: center;">
+                <div class="quiz-stars" style="margin-bottom: 1rem;">
+                    {% for i in range(4) %}
+                        {% if i < visual_score %}
+                            <span style="color: #77a4ef; font-size: 3em;">★</span>
+                        {% else %}
+                            <span style="color: #77a4ef; font-size: 3em;">☆</span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="speech-bubble" style="max-width: 400px; margin-bottom: 1rem;">
+                    {% if score == total %}
+                        <p>You really know how to apply color theory to fashion!!</p>
+                        <h2>{{ score }}/{{ total }} !!</h2>
+                    {% else %}
+                        <p>Your final score is:</p>
+                        <h2>{{ score }} out of {{ total }}</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
