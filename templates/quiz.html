@@ -47,9 +47,9 @@
                     <button class="prev-button" onclick="window.location.href='{{ question.prev_question }}'">Previous</button>
                     {% endif %}
                     {% if question.next_question %}
-                    <button id="nextButton" class="next-button" onclick="window.location.href='{{ question.next_question }}'">Next</button>
+                    <button id="nextButton" class="next-button" onclick="window.location.href='{{ question.next_question }}'" disabled style="opacity: 0.5; cursor: not-allowed;">Next</button>
                     {% else %}
-                    <button id="resultsButton" class="next-button" style="display:none;" onclick="window.location.href='/results'">See Results</button>
+                    <button id="resultsButton" class="next-button" style="display:none;" onclick="window.location.href='/results'" disabled style="opacity: 0.5; cursor: not-allowed;">See Results</button>
                     {% endif %}
                 </div>
             </div>
@@ -67,6 +67,18 @@ function checkAnswer(isCorrectStr, selectedOption, imgUrl) {
     const nextButton = document.getElementById('nextButton');
     const resultsButton = document.getElementById('resultsButton');
     const questionImage = document.getElementById('questionImage');
+
+    if (nextButton) {
+        nextButton.disabled = false;
+        nextButton.style.opacity = "1";
+        nextButton.style.cursor = "pointer";
+    }
+    if (resultsButton) {
+        resultsButton.disabled = false;
+        resultsButton.style.opacity = "1";
+        resultsButton.style.cursor = "pointer";
+    }
+
 
     // Update the image to match the chosen color
     if (imgUrl) {
