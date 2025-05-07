@@ -124,7 +124,7 @@ quiz_data = [
 	"page_number": "1/4",
         "theme": "monochrome",
         "question_text": "PICK A TOP COLOR TO MAKE A MONOCHROME OUTFIT",
-        "image_url": "/static/monochrome.png",
+        "image_url": "/static/quiz_home.png",
         "base_color": "#4a86e8",
         "options": [
             {"color": "#d12e4bff", "is_correct": False, "img_url":"/static/quiz1_pink.png"},
@@ -140,7 +140,7 @@ quiz_data = [
 	"page_number": "2/4",
         "theme": "triadic",
         "question_text": "PICK A SWEATER COLOR TO MAKE A TRIADIC OUTFIT",
-        "image_url": "/static/triadic.png",
+        "image_url": "/static/quiz2_home.png",
         "base_colors": ["#cc0000", "#1c4587"],
         "options": [
             {"color": "#357c69ff", "is_correct": False, "img_url":"/static/quiz2_green.png"},
@@ -156,7 +156,7 @@ quiz_data = [
 	"page_number": "3/4",
         "theme": "complementary",
         "question_text": "PICK A TOP COLOR TO MAKE A COMPLEMENTARY OUTFIT",
-        "image_url": "/static/complementary.png",
+        "image_url": "/static/quiz_home.png",
         "base_colors": ["#674ea7"],
         "options": [
             {"color": "#d12e4bff", "is_correct": False, "img_url":"/static/quiz1_pink.png"},
@@ -172,7 +172,7 @@ quiz_data = [
 	"page_number": "4/4",
         "theme": "tetradic",
         "question_text": "PICK A PURSE COLOR TO MAKE A TETRADIC OUTFIT.",
-        "image_url": "/static/tetradic.png",
+        "image_url": "/static/quiz3_home.png",
         "base_colors": ["#cc0000", "#274e13", "#1c4587"],
         "options": [
             {"color": "#f4ff86ff", "is_correct": True, "img_url":"/static/quiz3_yellow.png"},
