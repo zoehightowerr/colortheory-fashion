@@ -127,10 +127,9 @@ quiz_data = [
         "image_url": "/static/monochrome.png",
         "base_color": "#4a86e8",
         "options": [
-            {"color": "#a4c2f4", "is_correct": True},
-            {"color": "#e06666", "is_correct": False},
-            {"color": "#b6d7a8", "is_correct": False},
-            {"color": "#ffd966", "is_correct": False}
+            {"color": "#d12e4bff", "is_correct": False, "img_url":"/static/quiz1_pink.png"},
+            {"color": "#d1b42eff", "is_correct": False, "img_url":"/static/quiz1_yellow.png"},
+            {"color": "#5274e0ff", "is_correct": True, "img_url":"/static/quiz1_blue.png"}
         ],
         "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A MONOCHROME OUTFIT AGAIN!",
@@ -144,10 +143,9 @@ quiz_data = [
         "image_url": "/static/triadic.png",
         "base_colors": ["#cc0000", "#1c4587"],
         "options": [
-            {"color": "#e69138", "is_correct": False},
-            {"color": "#274e13", "is_correct": True},
-            {"color": "#674ea7", "is_correct": False},
-            {"color": "#ffd966", "is_correct": False}
+            {"color": "#357c69ff", "is_correct": False, "img_url":"/static/quiz2_green.png"},
+            {"color": "#5c3dd1ff", "is_correct": True, "img_url":"/static/quiz2_purple.png"},
+            {"color": "#ff207dff", "is_correct": False, "img_url":"/static/quiz2_pink.png"}
         ],
         "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A TRIADIC OUTFIT AGAIN!",
@@ -161,10 +159,9 @@ quiz_data = [
         "image_url": "/static/complementary.png",
         "base_colors": ["#674ea7"],
         "options": [
-            {"color": "#ffd966", "is_correct": True},
-            {"color": "#f6b26b", "is_correct": False},
-            {"color": "#e06666", "is_correct": False},
-            {"color": "#a4c2f4", "is_correct": False}
+            {"color": "#d12e4bff", "is_correct": False, "img_url":"/static/quiz1_pink.png"},
+            {"color": "#d1b42eff", "is_correct": True, "img_url":"/static/quiz1_yellow.png"},
+            {"color": "#5274e0ff", "is_correct": False, "img_url":"/static/quiz1_blue.png"}
         ],
         "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A COMPLEMENTARY OUTFIT AGAIN!",
@@ -178,10 +175,9 @@ quiz_data = [
         "image_url": "/static/tetradic.png",
         "base_colors": ["#cc0000", "#274e13", "#1c4587"],
         "options": [
-            {"color": "#ffd966", "is_correct": True},
-            {"color": "#f6b26b", "is_correct": False},
-            {"color": "#674ea7", "is_correct": False},
-            {"color": "#a4c2f4", "is_correct": False}
+            {"color": "#f4ff86ff", "is_correct": True, "img_url":"/static/quiz3_yellow.png"},
+            {"color": "#d41473ff", "is_correct": False, "img_url":"/static/quiz3_pink.png"},
+            {"color": "#1ca0daff", "is_correct": False, "img_url":"/static/quiz3_blue.png"}
         ],
         "feedback_correct": "GREAT WORK",
         "feedback_incorrect": "NOT QUITE… TRY TO MAKE A TETRADIC OUTFIT AGAIN!",
