@@ -286,3 +286,8 @@ main .title {
     gap: 1rem;
     align-items: center;
 }
+
+.disabled-dot {
+    pointer-events: none;
+    opacity: 0.6;
+}
