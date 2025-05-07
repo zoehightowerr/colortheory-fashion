@@ -1,17 +1,120 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ lesson.theory }} Lesson</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+{% extends "layout.html" %}
+{% block content %}
+  <!-- keep your Google fonts + main.css -->
   <link href='https://fonts.googleapis.com/css?family=DM Serif Display' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
   <style>
-   header .logo-link {
-      text-decoration: none;
-      color: inherit;
+    .lesson-title {
+      text-align: center;
+      margin-bottom: 1rem;
     }
+    .lesson-title h1 {
+      font-family: 'DM Serif Display';
+      font-size: 4.5rem;
+      color: #77a4ef;
+      margin: 0;
+    }
+    .lesson-title p {
+      font-size: 1.5rem;
+      color: #595959;
+      margin: 0.5rem 0;
+    }
+    /* full-width gray divider */
+    .lesson-title hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 1rem 0 2rem;
+    }
+  
+    .content-section {
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+  
+    .text-box {
+      flex: 1;
+      min-width: 700px;
+      background: #f2f2f2;
+      border: 2px solid #77a4ef;
+      border-radius: 30px;
+      padding: 2rem;
+      box-sizing: border-box;
+      margin-top:65px;
+    }
+    .text-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 1.5rem;
+      line-height: 1.6;
+    }
+    .text-box li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+    }
+    .text-box li::before {
+      content: '▢';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #595959;
+    }
+    .highlight {
+      color: #77a4ef;
+      font-weight: 600;
+    }
+  
+    .graphic {
+      flex: 0 0 700px;
+      text-align: center;
+    }
+    .graphic .popup-trigger {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: 0.75rem 1rem;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #77a4ef;
+      cursor: pointer;
+    }
+    .graphic img {
+      width: 100%;
+      border: 2px solid #ccc;
+      border-radius: 20px;
+      transition: transform 0.2s;
+      cursor: pointer;
+    }
+    .graphic img:hover {
+      transform: scale(1.03);
+    }
+  
+    /* Next button container moved up closer to content */
+    .next-button-container {
+      text-align: right;
+      margin-top: 1rem;   /* was 2rem, now 1rem */
+    }
+    .next {
+      background-color: #77a4ef;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-right: 150px; /* keep your right inset */
+    }
+    .next:hover {
+      background-color: rgba(0,0,0,0.2);
+    }
+  
+    /* ===== full modal CSS ===== */
     .modal {
       display: none;
       position: fixed;
@@ -23,18 +126,16 @@
       overflow: auto;
       background-color: rgba(0,0,0,0.6);
     }
-  
     .modal-content {
       background-color: #fff;
-      margin: 5% auto;
-      padding: 30px 40px;
+      margin: 15% auto;
+      padding: 40px 50px;            /* more padding */
       width: 80%;
-      max-width: 600px;
+      max-width: 700px;              /* wider popup */
       border-radius: 12px;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
-  
     .close {
       color: #aaa;
       float: right;
@@ -42,87 +143,64 @@
       font-weight: bold;
       cursor: pointer;
     }
-  
     .close:hover {
-      color: black;
+      color: #000;
     }
-  
-   
-  
-    .graphic img:hover {
-      cursor: pointer;
-      transform: scale(1.05);
-    }
-  
-    .title {
+    .modal-content .title {
       font-size: 1.2rem;
       font-weight: 600;
       margin-bottom: 20px;
     }
-
-  .next-button-container {
-  text-align: right;
-  padding: 30px 50px 50px 0;
-}
-
-.next {
-  background-color: #77a4ef;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 12px 28px;
-  border-radius: 6px;
-  font-size: 1rem;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-  transition: background-color 0.3s ease;
-}
-
-.next:hover {
-  background-color: #e98b33;
-}
-    
+    .color-examples {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .color-box {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+    }
   </style>
   
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('home_page') }}" class="logo-link">
-      <div class="logo">COLOR YOUR CLOSET</div>
-    </a>
-    <nav>
-      <a href="/learn/1a">Monochrome</a>
-      <a href="/learn/2a">Complementary</a>
-      <a href="/learn/3a">Triadic</a>
-      <a href="/learn/4a">Tetradic</a>
-      <a href="/quiz">Quiz</a>
-    </nav>
-  </header>
-  <main>
-    <div class="title">{{ lesson.theory | upper }}</div>
 
-    <section class="content-section">
-      <div class="text-box">
-        <ul>
-          {% for line in lesson.content %}
-            <li>{{ line }}</li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="graphic">
-        <img src="{{ lesson.color_wheel }}" alt="Color Wheel" />
-        <div class="popup">{{ lesson.comment_text }}</div>
-      </div>
-    </section>
+  <!-- Title + subtitle + divider -->
+  <div class="lesson-title">
+    <h1>{{ lesson.theory|upper }}</h1>
+    <p>(as a concept)</p>
+    <hr />
+  </div>
 
-    <div class="next-button-container">
-      <a href="{{lesson.next_lesson}}" class="next">NEXT</a>
+  <div class="content-section">
+    <!-- Text with highlighted keywords -->
+    <div class="text-box">
+      <ul>
+        {% for line in lesson.content %}
+          {# wrap specific phrases in a span.highlight, then mark safe #}
+          {% set txt = line
+             | replace('single base color','<span class="highlight">single base color</span>')
+             | replace('cohesive','<span class="highlight">cohesive</span>') %}
+          <li>{{ txt|safe }}</li>
+        {% endfor %}
+      </ul>
     </div>
-  </main>
 
-  <!-- Modal Structure -->
+    <!-- Graphic + popup triggers on text _and_ wheel -->
+    <div class="graphic">
+      <div id="triggerColor" class="popup-trigger">{{ lesson.comment_text }}</div>
+      <img id="wheelImg" src="{{ lesson.color_wheel }}" alt="Color Wheel" />
+    </div>
+  </div>
+
+  <!-- Next button -->
+  <div class="next-button-container">
+    <a href="{{ lesson.next_lesson }}" class="next">NEXT</a>
+  </div>
+
+  <!-- Modal markup (unchanged) -->
   <div id="colorModal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close" id="closeColor">&times;</span>
       <div class="title">EX: {{ lesson.popup_text }}</div>
       <div class="color-examples">
         {% for color in lesson.colors %}
@@ -132,27 +210,18 @@
     </div>
   </div>
 
+  <!-- Modal JS: attach to both text trigger & image -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const modal = document.getElementById("colorModal");
-      const img = document.querySelector(".graphic img");
-      const span = document.querySelector(".close");
-
-      img.onclick = function () {
-        modal.style.display = "block";
-      }
-
-      span.onclick = function () {
-        modal.style.display = "none";
-      }
-
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-        }
-      }
-    });
+    const modal = document.getElementById('colorModal');
+    document.getElementById('triggerColor').onclick =
+      document.getElementById('wheelImg').onclick = () => {
+        modal.style.display = 'block';
+      };
+    document.getElementById('closeColor').onclick = () => {
+      modal.style.display = 'none';
+    };
+    window.onclick = e => {
+      if (e.target === modal) modal.style.display = 'none';
+    };
   </script>
-
-</body>
-</html>
+{% endblock %}
