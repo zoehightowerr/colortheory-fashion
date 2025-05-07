@@ -80,6 +80,11 @@ function checkAnswer(isCorrectStr, selectedOption, imgUrl) {
 
     if (isCorrect) {
         answeredCorrectly = true;
+         document.querySelectorAll('.color-dot').forEach(dot => {
+                dot.onclick = null;
+                dot.style.cursor = 'default';
+                dot.classList.add('disabled-dot');
+            });
         fetch('/submit_answer', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
