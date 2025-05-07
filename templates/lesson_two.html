@@ -1,75 +1,137 @@
-<!--this is page two of each lesson--> 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{{ lesson.theory }} Fashion</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+{% extends "layout.html" %}
+{% block content %}
   <link href='https://fonts.googleapis.com/css?family=DM Serif Display' rel='stylesheet'>
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-  <style>
-   header .logo-link {
-      text-decoration: none;
-      color: inherit;
-    }
-    .next {
-      background-color: #0000ff;
-      color: #1a1a1a;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 12px 28px;
-      border-radius: 6px;
-      font-size: 1rem;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease;
-    }
 
-    .next:hover {
-      background-color: #e98b33;
+  <style>
+    .lesson-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      margin-top:20px;
+    }
+    .lesson-title h1 {
+      font-family: 'DM Serif Display';
+      font-size: 4.5rem;
+      margin:0;
+      color: #77a4ef;
+    }
+    .lesson-title p {
+      font-size: 1.5rem;
+      color: #595959;
+      margin: 0;
+    }
+        /* full-width gray divider */
+    .lesson-title hr {
+      width: 100%;
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 1rem 0 2rem;
     }
 
     .lesson-section {
       display: flex;
       justify-content: center;
+      gap: 10rem;
       align-items: flex-start;
-      gap: 3rem;
-      padding: 2rem;
       flex-wrap: wrap;
     }
 
-    .examples {
-      max-width: 500px;
+    .text-box {
+      flex: 1;
+      min-width: 700px;
+      background: #f2f2f2;
+      border: 2px solid #ccc;
+      border-radius: 30px;
+      padding: 2rem;
+      box-sizing: border-box;
+      margin-top:20px;
+    }
+    .text-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .text-box li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      margin-left: 1rem;
+      font-size: 1.5rem;
+    }
+    .text-box li::before {
+      content: '▢';
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: #595959;
+    }
+    .highlight {
+      color: #77a4ef;
+      font-weight: 600;
     }
 
-    .examples-container {
+    .examples-title {
+      font-family: 'DM Serif Display';
+      font-size: 2rem;
+      font-weight: bold;
+      color: #77a4ef;
+      text-align: left;
+    }
+    .examples {
+      min-width: 500px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 2.5rem;
+      gap: 3rem;
       padding: 2rem 1rem 4rem;
+      box-sizing: border-box;
     }
-
-    .example-pair {
+    .example {
       position: relative;
-      width: 500px;
-      height: 120px;
+      width: 100%;
+      max-width: 600px;
+      height: 150px;
       display: flex;
       border-radius: 24px;
       overflow: hidden;
+      background: #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      cursor: pointer;
     }
-
-    .color-half {
-      width: 50%;
-      height: 100%;
+    .example .color-half {
+      flex: 1;
     }
-
-    .label {
+    .example .label {
+      position: absolute;
+      bottom: 12px;
+      width: 100%;
+      text-align: center;
       font-weight: bold;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+      color: #595959;
+      text-transform: uppercase;
     }
 
+    .next-button-container {
+      text-align: right;
+      margin-top: 1rem;   /* was 2rem, now 1rem */
+    }
+    .next {
+      background-color: #77a4ef;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.75rem 2rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      margin-right: 150px; /* keep your right inset */
+    }
+    .next:hover {
+      background-color: rgba(0,0,0,0.2);
+    }
+    /* popups */
     .modal {
       display: none;
       position: fixed;
@@ -78,183 +140,129 @@
       top: 0;
       width: 100%;
       height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.6);
+      background-color: rgba(0,0,0,0.6);
     }
-
     .modal-content {
-      background-color: #fff;
+      background: #fff;
       margin: 10% auto;
       padding: 30px;
       width: 90%;
       max-width: 500px;
       border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
     }
-
     .close {
       float: right;
       font-size: 28px;
       font-weight: bold;
       cursor: pointer;
     }
-
     .custom-popup {
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 2rem;
     }
-
     .popup-layout {
       display: flex;
       gap: 2rem;
       align-items: center;
       justify-content: center;
     }
-
     .color-swatches {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
-
     .swatch {
       width: 60px;
       height: 60px;
       border-radius: 16px;
       border: 2px solid #dd6f1f;
     }
-
     .popup-image img {
       max-height: 500px;
       max-width: 100%;
       border-radius: 20px;
       object-fit: cover;
     }
-    .next-button-container {
-      text-align: right;
-      padding: 30px 50px 50px 0;
-    }
   </style>
-</head>
-<body>
-  <header>
-    <a href="{{ url_for('home_page') }}" class="logo-link">
-      <div class="logo">COLOR YOUR CLOSET</div>
-    </a>
-    <nav>
-      <a href="/learn/1a">Monochrome</a>
-      <a href="/learn/2a">Complementary</a>
-      <a href="/learn/3a">Triadic</a>
-      <a href="/learn/4a">Tetradic</a>
-      <a href="/quiz">Quiz</a>
-    </nav>
-  </header>
 
-  <main>
-    <div class="title">{{ lesson.theory | upper }}</div>
+  <!-- Title -->
+  <div class="lesson-title">
+    <h1>{{ lesson.theory|upper }}</h1>
+    <p>(in fashion)</p>
+    <hr />
+  </div>
 
-    <div class="lesson-section">
-      <div class="text-box">
-        <ul>
-          {% for line in lesson.content %}
-            <li>{{ line }}</li>
+  <!-- Body -->
+  <div class="lesson-section">
+    <!-- Text -->
+    <div class="text-box">
+      <ul>
+        {% for line in lesson.content %}
+          <li>{{ line }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Example palettes -->
+    <div class="examples">
+      <div class="examples-title">CLICK FOR OUTFIT EXAMPLES:</div>
+      {% for idx in [0,1] %}
+        <div class="example" id="trigger{{ idx }}">
+          {% set palette = idx == 0 and lesson.colors_1 or lesson.colors_2 %}
+          {% for c in palette %}
+            <div class="color-half" style="background-color: {{ c }}"></div>
           {% endfor %}
-        </ul>
-      </div>
-
-      <div class="examples">
-        <div class="title">EXAMPLES:</div>
-
-        <div id="trigger1" style="cursor: pointer;">
-          <div class="title">{{ lesson.bases[0] }}</div>
-          <div class="color-examples">
-            {% for color in lesson.colors_1 %}
-              <div class="color-box" style="background-color: {{ color }};"></div>
-            {% endfor %}
+          <div class="label">
+            BASE: {{ lesson.bases[idx].split(':')[-1] | upper }}
           </div>
         </div>
-
-        <div id="trigger2" style="cursor: pointer; margin-top: 2rem;">
-          <div class="title">{{ lesson.bases[1] }}</div>
-          <div class="color-examples">
-            {% for color in lesson.colors_2 %}
-              <div class="color-box" style="background-color: {{ color }};"></div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="next-button-container">
-      <a href="{{lesson.next_lesson}}" class="next">NEXT</a>
-    </div>
-  </main>
-
-  <div id="popup1" class="modal">
-    <div class="modal-content custom-popup">
-      <span class="close" id="close1">&times;</span>
-      <div class="popup-layout">
-        <div class="color-swatches">
-          {% for color in lesson.colors_1 %}
-            <div class="swatch" style="background-color: {{ color }}"></div>
-          {% endfor %}
-        </div>
-        <div class="popup-image">
-          <img src="{{ lesson.outfit_1 }}" alt="Outfit Example 1">
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 
-  <div id="popup2" class="modal">
-    <div class="modal-content custom-popup">
-      <span class="close" id="close2">&times;</span>
-      <div class="popup-layout">
-        <div class="color-swatches">
-          {% for color in lesson.colors_2 %}
-            <div class="swatch" style="background-color: {{ color }}"></div>
-          {% endfor %}
-        </div>
-        <div class="popup-image">
-          <img src="{{ lesson.outfit_2 }}" alt="Outfit Example 2">
+  <!-- Next button -->
+  <div class="next-button-container">
+    <a href="{{ lesson.next_lesson }}" class="next">NEXT</a>
+  </div>
+
+  <!-- Popups -->
+  {% for idx in [1,2] %}
+    <div id="popup{{ idx }}" class="modal">
+      <div class="modal-content custom-popup">
+        <span class="close" id="close{{ idx }}">&times;</span>
+        <div class="popup-layout">
+          <div class="color-swatches">
+            {% for color in (idx == 1 and lesson.colors_1 or lesson.colors_2) %}
+              <div class="swatch" style="background-color: {{ color }}"></div>
+            {% endfor %}
+          </div>
+          <div class="popup-image">
+            <img src="{{ idx == 1 and lesson.outfit_1 or lesson.outfit_2 }}" alt="Outfit Example {{ idx }}">
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  {% endfor %}
 
+  <!-- Popup JS -->
   <script>
-    const popup1 = document.getElementById('popup1');
-    const popup2 = document.getElementById('popup2');
-    const trigger1 = document.getElementById('trigger1');
-    const trigger2 = document.getElementById('trigger2');
-    const close1 = document.getElementById('close1');
-    const close2 = document.getElementById('close2');
-
-    trigger1.onclick = () => {
-      popup1.style.display = 'block';
-    };
-
-    trigger2.onclick = () => {
-      popup2.style.display = 'block';
-    };
-
-    close1.onclick = () => {
-      popup1.style.display = 'none';
-    };
-
-    close2.onclick = () => {
-      popup2.style.display = 'none';
-    };
-
-    window.onclick = (e) => {
-      if (e.target === popup1) {
-        popup1.style.display = 'none';
-      }
-      if (e.target === popup2) {
-        popup2.style.display = 'none';
-      }
+    {% for idx in [1,2] %}
+      document.getElementById('trigger{{ idx-1 }}').onclick = () => {
+        document.getElementById('popup{{ idx }}').style.display = 'block';
+      };
+      document.getElementById('close{{ idx }}').onclick = () => {
+        document.getElementById('popup{{ idx }}').style.display = 'none';
+      };
+    {% endfor %}
+    window.onclick = e => {
+      ['popup1','popup2'].forEach(id => {
+        if (e.target.id === id) {
+          document.getElementById(id).style.display = 'none';
+        }
+      });
     };
   </script>
-</body>
-</html>
+{% endblock %}
