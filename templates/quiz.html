@@ -22,7 +22,8 @@
     <div class="quiz-card">
         <div class="quiz-content">
             <div class="character-container">
-                <img src="{{ question.image_url }}" alt="Character" class="question-image">
+                <img id="questionImage" src="{{ question.image_url }}" alt="Character" class="question-image">
+
             </div>
             <div class="question-options-container">
                 <div class="speech-bubble">
@@ -31,10 +32,11 @@
 
                 <div class="options-container">
                     {% for option in question.options %}
-                    <div class="color-dot"
+                   <div class="color-dot"
                          style="background-color: {{ option.color }};"
-                         onclick="checkAnswer('{{ option.is_correct }}', this)">
+                         onclick="checkAnswer('{{ option.is_correct }}', this, '{{ option.img_url }}')">
                     </div>
+
                     {% endfor %}
                 </div>
 
@@ -59,11 +61,17 @@
 let answeredCorrectly = false;
 let selectedWrongOption = null;
 
-function checkAnswer(isCorrectStr, selectedOption) {
+function checkAnswer(isCorrectStr, selectedOption, imgUrl) {
     const isCorrect = (isCorrectStr === 'True');
     const feedbackDiv = document.querySelector('.feedbackBox p');
     const nextButton = document.getElementById('nextButton');
     const resultsButton = document.getElementById('resultsButton');
+    const questionImage = document.getElementById('questionImage');
+
+    // Update the image to match the chosen color
+    if (imgUrl) {
+        questionImage.src = imgUrl;
+    }
 
     // Remove previous wrong answer outline
     if (selectedWrongOption) {
