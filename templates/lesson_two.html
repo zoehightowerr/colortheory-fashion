@@ -6,7 +6,7 @@
   <style>
     .lesson-title {
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
       margin-top:20px;
     }
     .lesson-title h1 {
@@ -25,7 +25,7 @@
       width: 100%;
       border: 0;
       border-top: 1px solid #ccc;
-      margin: 1rem 0 2rem;
+      margin: 0.5rem 0;
     }
 
     .lesson-section {
@@ -38,9 +38,9 @@
 
     .text-box {
       flex: 1;
-      min-width: 700px;
+      min-width: 500px;
       background: #f2f2f2;
-      border: 2px solid #ccc;
+      border: 2px solid #77a4ef;
       border-radius: 30px;
       padding: 2rem;
       box-sizing: border-box;
@@ -53,13 +53,15 @@
       font-size: 1.1rem;
       line-height: 1.6;
     }
+
     .text-box li {
       position: relative;
       padding-left: 1.5rem;
       margin-bottom: 1rem;
       margin-left: 1rem;
-      font-size: 1.5rem;
+      font-size: 1.1rem;
     }
+
     .text-box li::before {
       content: '▢';
       position: absolute;
@@ -67,14 +69,10 @@
       top: 0;
       color: #595959;
     }
-    .highlight {
-      color: #77a4ef;
-      font-weight: 600;
-    }
 
     .examples-title {
       font-family: 'DM Serif Display';
-      font-size: 2rem;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #77a4ef;
       text-align: left;
@@ -90,8 +88,8 @@
     .example {
       position: relative;
       width: 100%;
-      max-width: 600px;
-      height: 150px;
+      max-width: 500px;
+      height: 100px;
       display: flex;
       border-radius: 24px;
       overflow: hidden;
@@ -115,7 +113,6 @@
 
     .next-button-container {
       text-align: right;
-      margin-top: 1rem;   /* was 2rem, now 1rem */
     }
     .next {
       background-color: #77a4ef;
@@ -127,6 +124,8 @@
       font-size: 1rem;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       margin-right: 150px; /* keep your right inset */
+      margin-bottom: 70px;
+  
     }
     .next:hover {
       background-color: rgba(0,0,0,0.2);
