@@ -220,7 +220,7 @@ main .title {
 
 .character-container {
     flex-shrink: 0; /* Prevent the character image from shrinking */
-    max-width: 300px;
+    max-width: 250px;
 }
 
 .question-image {
