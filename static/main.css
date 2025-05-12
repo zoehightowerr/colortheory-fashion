@@ -70,7 +70,6 @@ main .title {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    padding: 2rem;
 }
 
 .content-section img {
