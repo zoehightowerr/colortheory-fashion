@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<body>
+<div class="quiz-wrapper">
+    <div class="quiz-header" style="display: flex; justify-content: center; align-items: center; padding-top: 1rem; padding-bottom: 1rem;">
+        <h1 style="color: #77a4ef; font-family: 'DM Serif Display'; text-align: center; margin: 0;">QUIZ</h1>
+    </div>
+    <div class="quiz-card">
+        <div class="quiz-content" style="display: flex; align-items: flex-start;">
+            <div class="character-container">
+                <img src="{{ url_for('static', filename='quiz_home.png') }}" alt="Character" class="question-image">
+            </div>
+            <div class="question-options-container" style="align-items: flex-start; text-align: left;">
+                <div class="speech-bubble" style="max-width: 400px; margin-bottom: 1rem;">
+                   <p style="font-family: 'Poppins', sans-serif;">READY TO TEST YOUR KNOWLEDGE ON COLOR THEORY?</p>
+                </div>
+                <a href="{{ url_for('quiz_question', question_number=1) }}" class="start-button" style="margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: #77a4ef; color: white; font-size: 1.25rem; font-weight: 600; text-decoration: none; border-radius: 8px; display: inline-block;">Start Quiz</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}
