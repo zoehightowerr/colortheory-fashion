@@ -143,8 +143,8 @@ quiz_data = [
         "image_url": "/static/quiz2_home.png",
         "base_colors": ["#cc0000", "#1c4587"],
         "options": [
-            {"color": "#357c69ff", "is_correct": False, "img_url":"/static/quiz2_green.png"},
-            {"color": "#5c3dd1ff", "is_correct": True, "img_url":"/static/quiz2_purple.png"},
+            {"color": "#357c69ff", "is_correct": True, "img_url":"/static/quiz2_green.png"},
+            {"color": "#5c3dd1ff", "is_correct": False, "img_url":"/static/quiz2_purple.png"},
             {"color": "#ff207dff", "is_correct": False, "img_url":"/static/quiz2_pink.png"}
         ],
         "feedback_correct": "GREAT WORK",
