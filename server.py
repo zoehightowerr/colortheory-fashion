@@ -113,7 +113,7 @@ learning_page2_data= [
       "color_amount":"4",
       "outfit_1":"/static/tetradic_1.png",
       "outfit_2":"/static/tetradic_2.png",
-      "next_lesson":"/quiz/1"
+      "next_lesson":"/quiz"
    }
 ]
 
