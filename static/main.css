@@ -178,7 +178,6 @@ main .title {
     flex-direction: column;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    padding-bottom: 2rem; /* Add some padding at the bottom */
 }
 
 .quiz-header {
@@ -187,7 +186,6 @@ main .title {
     align-items: center;
     width: 90%;
     max-width: 900px;
-    margin-top: 2rem;
     font-weight: 800;
     font-size: 2rem;
 }
@@ -207,7 +205,6 @@ main .title {
     border: 2px solid #77a4ef;
     border-radius: 12px;
     padding: 2rem;
-    margin-top: 2rem;
     max-width: 900px;
     width: 90%;
 }
@@ -220,7 +217,7 @@ main .title {
 
 .character-container {
     flex-shrink: 0; /* Prevent the character image from shrinking */
-    max-width: 300px;
+    max-width: 250px;
 }
 
 .question-image {
