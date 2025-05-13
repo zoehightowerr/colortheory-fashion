@@ -51,7 +51,7 @@ learning_page1_data= [
       "content":["Uses four evenly spaced colors on the color wheel to create a dynamic palette.","To maintain balance, it’s best to let one color take the lead.",
                  "The remaining colors should be used as accents.","With more colors involved, achieving harmony can be more challenging."],
       "color_wheel": "https://images.akzonobel.com/akzonobel-flourish/dulux/ie/en/articles/colour-theory-made-easy/colourwheel-duluxuk-jpeg.jpg?impolicy=.auto&imwidth=1366",
-      "comment_text":"Click to explore the rbyg triadic",
+      "comment_text":"Click to explore the rbyg tetradic",
       "popup_text":"Red, blue, yellow and green of the same hue is the most basic tetradic combination",
       "colors":["#d12e81ff","#d1cf2eff","#2ed17eff","#2e30d1ff"],
       "color_amount":"4",
@@ -63,7 +63,7 @@ learning_page2_data= [
    {
       "id": "1",
       "theory": "Monochrome",
-      "content":["Monochromatic are easy on the eyes and effortlessly stylish.", "This approach simplifies dressing while maintaining a bold, put-together appearance.",
+      "content":["Monochromatic outfits are easy on the eyes and effortlessly stylish.", "This approach simplifies dressing while maintaining a bold, put-together appearance.",
                  "Examples include all-blue, all-beige, or all-black outfits.","Depth and interest are added through variations in texture and tone."],
       "bases":["base:pink","base:gray"],
       "colors_1":["#e17083ff","#eab3bfff", "#f1d2d9ff"],
