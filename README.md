@@ -1,4 +1,4 @@
-To run the Color Your Closet app locally, run these commands in your terminal:/
+To run the Color Your Closet app locally, run these commands in your terminal:/n
 python3 -m venv .venv/
 . .venv/bin/activate/
 pip install Flask/
