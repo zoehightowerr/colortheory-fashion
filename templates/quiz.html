@@ -8,14 +8,8 @@
         <div style="text-align: center; flex-grow: 1;">
             <h1 style="color: #77a4ef; font-family: 'DM Serif Display'; margin: 0;">QUIZ</h1>
         </div>
-        <div class="quiz-stars">
-            {% for i in range(4) %}
-                {% if i < visual_score %}
-                    <span style="color: #77a4ef; font-size: 1.5em;">★</span>
-                {% else %}
-                    <span style="color: #77a4ef; font-size: 1.5em;">☆</span>
-                {% endif %}
-            {% endfor %}
+        <div class="quiz-progress" style="padding-right: 2rem; font-family: 'DM Serif Display'; color: #77a4ef; font-size: 1.5em;">
+            Q{{ question.page_number }}
         </div>
     </div>
 
